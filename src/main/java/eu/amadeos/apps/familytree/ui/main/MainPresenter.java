@@ -110,6 +110,7 @@ public final class MainPresenter {
         forward.clear();
         s.prefs().setLastTree(t.name());
         view.showTree(t, loaded);
+        showHome();
         Person start = home().orElseGet(() -> loaded.persons().stream().findFirst().orElse(null));
         root = start;
         selected = start;
@@ -137,6 +138,7 @@ public final class MainPresenter {
             if (view.editPerson(p, step, true)) {
                 undo.commit(step);
                 s.prefs().setHomePerson(t.name(), p.id());
+                showHome();
                 save();
                 root = p;
                 selected = p;
@@ -430,7 +432,12 @@ public final class MainPresenter {
     public void setHome() {
         if (selected == null || stored == null) return;
         s.prefs().setHomePerson(stored.name(), selected.id());
+        showHome();
         view.showStatus(msg.format("status.home", selected.fullName()));
+    }
+
+    private void showHome() {
+        view.showHome(home().map(Person::id).orElse(null));
     }
 
     public void showView(ViewKind kind) {

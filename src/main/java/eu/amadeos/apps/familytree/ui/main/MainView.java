@@ -26,6 +26,9 @@ public interface MainView {
     /** {@code root} is the person the chart is about, {@code selected} the one the summary shows. */
     void showPerson(Person root, Person selected);
 
+    /** The home person ("me") changed: the list marks them. {@code personId} is null when there is none. */
+    void showHome(String personId);
+
     void showView(ViewKind view, int generations);
 
     void updateActions(boolean hasTree, boolean hasSelection, String undoLabel, String redoLabel, boolean back,
