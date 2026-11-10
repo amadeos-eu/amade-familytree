@@ -578,7 +578,8 @@ public final class MainWindow extends JFrame implements MainView {
             page.setText("");
             return;
         }
-        String key = view + "/" + generations + "/" + root.id() + "/" + tree.revision();
+        String key = view + "/" + generations + "/" + root.id() + "/" + tree.revision()
+                + (view == ViewKind.RELATIONSHIP && selected != null ? "/" + selected.id() : "");
         if (key.equals(builtFor)) return;
         builtFor = key;
         switch (view) {
@@ -591,6 +592,16 @@ public final class MainWindow extends JFrame implements MainView {
                 chart.setChart(c);
                 viewCards.show(viewArea, CHART);
                 javax.swing.SwingUtilities.invokeLater(() -> chart.reveal(root));
+            }
+            case RELATIONSHIP -> {
+                Person target = selected != null ? selected : root;
+                RelationshipText words = new RelationshipText(msg);
+                chart.setChart(TreeLayout.relationship(root, target,
+                        p -> words.of(Relationship.between(root, p)),
+                        msg.format("rel.view.title", root.fullName(), target.fullName(),
+                                words.of(Relationship.between(root, target)))));
+                viewCards.show(viewArea, CHART);
+                javax.swing.SwingUtilities.invokeLater(() -> chart.reveal(target));
             }
             case FAN -> {
                 fan.setRoot(root, generations);

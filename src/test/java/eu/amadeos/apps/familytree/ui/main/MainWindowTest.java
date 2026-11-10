@@ -83,6 +83,9 @@ class MainWindowTest {
             assertTrue(window.pagePane().getText().contains("Hildegard"));
             presenter.showView(ViewKind.TIMELINE);
             assertTrue(window.pagePane().getText().contains("1928"));
+            presenter.select(presenter.tree().orElseThrow().person("I14").orElseThrow());
+            presenter.showView(ViewKind.RELATIONSHIP);
+            assertEquals(3, window.chartPanel().chart().boxes().size(), "Ernst, Gisela, granddaughter Julia");
             presenter.showView(ViewKind.HOURGLASS);
         });
     }

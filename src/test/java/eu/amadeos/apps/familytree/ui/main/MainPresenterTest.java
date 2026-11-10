@@ -247,4 +247,24 @@ class MainPresenterTest {
         presenter.openTreeDialog();
         assertEquals("Brenner", presenter.stored().orElseThrow().name());
     }
+
+    @Test
+    void theRelationshipViewStartsAtHomeAndFollowsTheSelection() throws IOException {
+        brenner();
+        prefs.setHomePerson("Brenner", "I1");
+        presenter.start(Optional.empty());
+        presenter.centre(person("I14"));
+        presenter.showView(ViewKind.RELATIONSHIP);
+        assertEquals("I1", view.root.id(), "the way starts at the home person");
+        assertEquals("I14", view.selected.id(), "and leads to the selected person");
+        presenter.select(person("I12"));
+        assertEquals("I1", view.root.id());
+        assertEquals("I12", view.selected.id());
+        presenter.centre(person("I14"));
+        assertEquals("I14", view.root.id(), "a double-click chooses another start");
+        assertEquals("I12", view.selected.id(), "the destination stays");
+        presenter.back();
+        assertEquals("I1", view.root.id());
+        assertEquals("I12", view.selected.id());
+    }
 }

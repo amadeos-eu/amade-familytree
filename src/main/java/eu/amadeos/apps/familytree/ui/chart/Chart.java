@@ -97,7 +97,7 @@ public final class Chart {
         Rectangle2D r = null;
         for (Box b : boxes) r = add(r, b.bounds());
         for (Line l : lines) for (Point2D p : l.points()) r = add(r, new Rectangle2D.Double(p.getX(), p.getY(), 0, 0));
-        for (Title t : titles) r = add(r, new Rectangle2D.Double(t.x(), t.y() - 12, 120, 14));
+        for (Title t : titles) r = add(r, new Rectangle2D.Double(t.x(), t.y() - 12, Math.max(120, t.text().length() * 6.5), 14));
         return r == null ? new Rectangle2D.Double(0, 0, BOX_W, BOX_H) : r;
     }
 

@@ -392,7 +392,8 @@ public final class MainPresenter {
             forward.clear();
         }
         root = p;
-        selected = p;
+        // In the relationship view the person in the middle is where the way starts; the destination stays.
+        if (viewKind != ViewKind.RELATIONSHIP || selected == null) selected = p;
         view.showPerson(root, selected);
         updateActions();
     }
@@ -419,7 +420,7 @@ public final class MainPresenter {
             if (p.isEmpty()) continue;
             if (root != null) to.push(root.id());
             root = p.get();
-            selected = root;
+            if (viewKind != ViewKind.RELATIONSHIP || selected == null) selected = root;
             view.showPerson(root, selected);
             break;
         }
@@ -433,6 +434,19 @@ public final class MainPresenter {
     }
 
     public void showView(ViewKind kind) {
+        if (kind == ViewKind.RELATIONSHIP && viewKind != ViewKind.RELATIONSHIP && tree != null) {
+            // The way starts at the home person; the selected person stays the destination.
+            Person start = home().orElse(root);
+            if (start != null && !start.equals(root)) {
+                if (root != null) {
+                    back.push(root.id());
+                    forward.clear();
+                }
+                root = start;
+            }
+            if (selected == null) selected = root;
+            view.showPerson(root, selected);
+        }
         viewKind = kind;
         s.prefs().setView(kind.ordinal());
         view.showView(kind, generations());

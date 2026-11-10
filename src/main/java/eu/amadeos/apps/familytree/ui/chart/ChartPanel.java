@@ -222,7 +222,13 @@ public final class ChartPanel extends JComponent implements Scrollable, Printabl
         FontMetrics fm = g.getFontMetrics();
         g.setColor(c.muted());
         for (Chart.Label l : chart.labels()) {
-            g.drawString(l.text(), (float) (l.x() - fm.stringWidth(l.text()) / 2.0), (float) l.y());
+            // On the background colour, so that a line behind the text does not cross it.
+            int w = fm.stringWidth(l.text());
+            g.setColor(c.background());
+            g.fill(new java.awt.geom.Rectangle2D.Double(l.x() - w / 2.0 - 3, l.y() - fm.getAscent(), w + 6,
+                    fm.getAscent() + fm.getDescent()));
+            g.setColor(c.muted());
+            g.drawString(l.text(), (float) (l.x() - w / 2.0), (float) l.y());
         }
         for (Chart.Box b : chart.boxes()) {
             painter.paint(g, c, b, withSelection && b.person().equals(selected), portraits.of(b.person()));
