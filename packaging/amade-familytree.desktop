@@ -1,0 +1,25 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=amadeOS Family Tree
+Name[de]=amadeOS Stammbaum
+Name[fr]=amadeOS Arbre généalogique
+Name[es]=amadeOS Árbol genealógico
+Name[it]=amadeOS Albero genealogico
+GenericName=Family Tree
+GenericName[de]=Stammbaum
+GenericName[fr]=Arbre généalogique
+GenericName[es]=Árbol genealógico
+GenericName[it]=Albero genealogico
+Comment=Record ancestors and relatives and see them as charts
+Comment[de]=Vorfahren und Verwandte erfassen und als Stammbaum sehen
+Comment[fr]=Noter ancêtres et parenté et les voir en arbre
+Comment[es]=Registrar antepasados y familiares y verlos como árbol
+Comment[it]=Registrare antenati e parenti e vederli come albero
+Icon=amade-familytree
+Exec=/usr/bin/amade-familytree %f
+Terminal=false
+Categories=Office;Education;
+MimeType=text/vnd.familysearch.gedcom;application/x-gedcom;application/vnd.familysearch.gedcom+zip;
+Keywords=genealogy;family;tree;ancestors;GEDCOM;Stammbaum;Ahnenforschung;Genealogie;généalogie;genealogía;genealogia;
+StartupNotify=true
