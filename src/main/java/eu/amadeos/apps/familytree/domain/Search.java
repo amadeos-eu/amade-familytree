@@ -79,6 +79,7 @@ public final class Search {
      * The Kölner Phonetik code of a word: names that sound alike in German get the same digits
      * ("Meyer", "Maier", "Mayr" → 67; "Schmidt", "Schmitt" → 862).
      */
+    // --8<-- [start:cologne]
     public static String cologne(String word) {
         String s = fold(word).toUpperCase(Locale.ROOT).replaceAll("[^A-Z]", "");
         if (s.isEmpty()) return "";
@@ -123,4 +124,5 @@ public final class Search {
         for (int i = 0; i < out.length(); i++) if (out.charAt(i) != '0' || i == 0) result.append(out.charAt(i));
         return result.toString();
     }
+    // --8<-- [end:cologne]
 }

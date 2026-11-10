@@ -84,6 +84,7 @@ public final class GedcomReader {
         return decode(bytes, null);
     }
 
+    // --8<-- [start:decode]
     private static Decoded decode(byte[] bytes, GedcomReader reader) {
         int n = bytes.length;
         if (n >= 3 && (bytes[0] & 0xFF) == 0xEF && (bytes[1] & 0xFF) == 0xBB && (bytes[2] & 0xFF) == 0xBF) {
@@ -128,6 +129,7 @@ public final class GedcomReader {
             }
         }
     }
+    // --8<-- [end:decode]
 
     private static boolean isAscii(byte[] bytes) {
         for (byte b : bytes) if (b < 0) return false;
@@ -200,6 +202,7 @@ public final class GedcomReader {
     }
 
     /** Joins CONT and CONC into the values, recursively, and undoes the @@ escape. */
+    // --8<-- [start:join]
     private static void join(GedcomNode node, boolean v7) {
         if (node.has("CONT") || node.has("CONC")) {
             StringBuilder value = new StringBuilder(node.text());
@@ -222,4 +225,5 @@ public final class GedcomReader {
         }
         for (GedcomNode c : node.children()) join(c, v7);
     }
+    // --8<-- [end:join]
 }

@@ -463,6 +463,7 @@ public final class MainPresenter {
 
     // ---- changes ---------------------------------------------------------------------------------------------
 
+    // --8<-- [start:edit]
     public void editSelected() {
         if (selected == null || tree == null) return;
         Undo.Step step = undo.begin(tree, msg.format("undo.edit", selected.shortName()));
@@ -485,6 +486,7 @@ public final class MainPresenter {
         }
         updateActions();
     }
+    // --8<-- [end:edit]
 
     /** Adds a new relative of the selected person and opens the editor for them; Cancel takes it back. */
     public void addRelative(Relative kind) {

@@ -169,6 +169,7 @@ public final class FanChart extends JComponent implements Printable {
         List<Person> current = new ArrayList<>();
         current.add(root);
         double r0 = CENTRE;
+        // --8<-- [start:segments]
         for (int gen = 1; gen <= generations; gen++) {
             List<Person> next = new ArrayList<>();
             for (Person p : current) {
@@ -206,6 +207,7 @@ public final class FanChart extends JComponent implements Printable {
             r0 = r1;
             if (!anyParentKnown) break;
         }
+        // --8<-- [end:segments]
         double r = CENTRE;
         Arc2D centre = new Arc2D.Double(cx - r, cy - r, 2 * r, 2 * r, 0, 180, Arc2D.PIE);
         g.setColor(ChartColors.mix(c.box(), c.accent(), 0.35));

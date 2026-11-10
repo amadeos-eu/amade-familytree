@@ -17,6 +17,7 @@ public final class Person {
     /** Facts that mean a person has died. */
     public static final Set<String> DEATH_TAGS = Set.of("DEAT", "BURI", "CREM", "PROB", "WILL");
 
+    // --8<-- [start:view]
     private final FamilyTree tree;
     private final GedcomNode node;
 
@@ -44,6 +45,7 @@ public final class Person {
         for (GedcomNode n : node.children("NAME")) list.add(new PersonName(n));
         return list;
     }
+    // --8<-- [end:view]
 
     /** The first name that is not a birth name of its own, else the first name; empty without names. */
     public Optional<PersonName> primaryName() {

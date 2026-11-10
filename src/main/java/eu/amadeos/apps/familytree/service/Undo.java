@@ -43,6 +43,7 @@ public final class Undo {
         }
 
         /** Keeps a copy of the record before it changes; only the first call per record counts. */
+        // --8<-- [start:touch]
         public Step touch(String id) {
             if (id == null || before.containsKey(id)) return this;
             before.put(id, new Saved(tree.record(id).map(GedcomNode::copy).orElse(null), tree.indexOf(id)));
@@ -63,6 +64,7 @@ public final class Undo {
             for (Person q : f.children()) touch(q.id());
             return this;
         }
+        // --8<-- [end:touch]
 
         private void finish() {
             for (String id : ids(tree)) if (!idsAtStart.contains(id)) before.putIfAbsent(id, new Saved(null, 0));
@@ -73,6 +75,7 @@ public final class Undo {
         }
 
         /** Puts the records back as they were; returns the step that does the opposite. */
+        // --8<-- [start:revert]
         private Step revert() {
             Step opposite = new Step(tree, label);
             for (String id : before.keySet()) opposite.touch(id);
@@ -81,6 +84,7 @@ public final class Undo {
             tree.changed();
             return opposite;
         }
+        // --8<-- [end:revert]
     }
 
     private final Deque<Step> undo = new ArrayDeque<>();
@@ -91,6 +95,7 @@ public final class Undo {
     }
 
     /** Ends a change: it can now be undone. */
+    // --8<-- [start:commit]
     public void commit(Step step) {
         step.finish();
         if (step.isEmpty()) return;
@@ -104,6 +109,7 @@ public final class Undo {
         step.finish();
         step.revert();
     }
+    // --8<-- [end:commit]
 
     public boolean canUndo() {
         return !undo.isEmpty();
