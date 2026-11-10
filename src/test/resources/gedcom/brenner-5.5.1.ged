@@ -1,0 +1,289 @@
+0 HEAD
+1 GEDC
+2 VERS 5.5.1
+2 FORM LINEAGE-LINKED
+1 CHAR UTF-8
+1 SOUR WEBTREE
+2 NAME Some Web Genealogy Service
+2 VERS 5.9
+1 DATE 8 NOV 2026
+1 LANG German
+1 SUBM @U1@
+1 _PROJECT_GUID 4F9A0C3E-1B2D-4C5E-8F60-718293A4B5C6
+1 PLAC
+2 FORM City, County, State, Country
+0 @U1@ SUBM
+1 NAME Example Submitter
+0 @I1@ INDI
+1 _UPD 8 NOV 2026 10:12:31 GMT +0100
+1 NAME Ernst Wilhelm /Brenner/
+2 GIVN Ernst Wilhelm
+2 SURN Brenner
+2 NICK Ernst
+1 SEX M
+1 BIRT
+2 DATE 14 MAR 1928
+2 PLAC Esslingen am Neckar, Württemberg, Deutschland
+2 SOUR @S1@
+3 PAGE Taufen 1928, S. 112, Nr. 37
+1 CHR
+2 DATE 25 MAR 1928
+2 PLAC Esslingen am Neckar, Württemberg, Deutschland
+2 TYPE St. Dionys
+1 OCCU Werkzeugmacher
+2 DATE FROM 1950 TO 1990
+2 PLAC Stuttgart, Württemberg, Deutschland
+1 RESI
+2 DATE ABT 1960
+2 PLAC Plochingen, Württemberg, Deutschland
+2 ADDR Marktstraße 4
+1 DEAT
+2 DATE 3 FEB 2009
+2 PLAC Plochingen, Württemberg, Deutschland
+2 CAUS Herzversagen
+1 BURI
+2 DATE 9 FEB 2009
+2 PLAC Waldfriedhof, Plochingen, Württemberg, Deutschland
+1 OBJE
+2 FORM jpg
+2 FILE https://photos.example.org/brenner/ernst-1955.jpg
+2 TITL Ernst 1955
+2 _PRIM Y
+1 NOTE Ernst erzählte gern von der Lehre bei Bosch.
+2 CONT Er war 40 Jahre im selben Betrieb.
+1 FAMC @F2@
+1 FAMS @F1@
+1 _UID 7A1B2C3D4E5F60718293A4B5C6D7E8F9
+1 RIN 1
+0 @I2@ INDI
+1 NAME Hildegard /Vogt/
+2 GIVN Hildegard
+2 SURN Vogt
+2 _MARNM Brenner
+1 SEX F
+1 BIRT
+2 DATE 2 JUN 1931
+2 PLAC Reichenbach an der Fils, Württemberg, Deutschland
+1 DEAT
+2 DATE 17 OCT 2015
+2 PLAC Plochingen, Württemberg, Deutschland
+1 FAMS @F1@
+1 _UID 1A2B3C4D5E6F708192A3B4C5D6E7F801
+0 @I3@ INDI
+1 NAME Karl /Brenner/
+1 SEX M
+1 BIRT
+2 DATE 1898
+2 PLAC Esslingen am Neckar, Württemberg, Deutschland
+1 DEAT
+2 DATE 1967
+2 PLAC Esslingen am Neckar, Württemberg, Deutschland
+1 OCCU Schlosser
+1 FAMC @F3@
+1 FAMS @F2@
+0 @I4@ INDI
+1 NAME Anna /Keller/
+2 _MARNM Brenner
+1 SEX F
+1 BIRT
+2 DATE 11 JAN 1902
+2 PLAC Plochingen, Württemberg, Deutschland
+1 DEAT
+2 DATE 1989
+1 FAMC @F4@
+1 FAMS @F2@
+0 @I5@ INDI
+1 NAME Johann /Brenner/
+1 SEX M
+1 BIRT
+2 DATE ABT 1868
+2 PLAC Esslingen am Neckar, Württemberg, Deutschland
+1 DEAT
+2 DATE 1931
+1 FAMC @F5@
+1 FAMS @F3@
+1 NOTE @N1@
+0 @I6@ INDI
+1 NAME Maria /Haug/
+2 _MARNM Brenner
+1 SEX F
+1 BIRT
+2 DATE 1872
+1 DEAT
+2 DATE 1944
+1 FAMS @F3@
+0 @I7@ INDI
+1 NAME Friedrich /Keller/
+1 SEX M
+1 BIRT
+2 DATE 1870
+2 PLAC Plochingen, Württemberg, Deutschland
+1 DEAT
+2 DATE 1938
+1 OCCU Weingärtner
+1 FAMS @F4@
+0 @I8@ INDI
+1 NAME Rosa /Maier/
+2 _MARNM Keller
+1 SEX F
+1 BIRT
+2 DATE Frühjahr 1875
+2 PLAC Wendlingen, Württemberg, Deutschland
+1 DEAT
+2 DATE 1951
+1 FAMS @F4@
+0 @I9@ INDI
+1 NAME Peter /Brenner/
+1 SEX M
+1 BIRT
+2 DATE 5 JUL 1954
+2 PLAC Plochingen, Württemberg, Deutschland
+1 FAMC @F1@
+1 FAMS @F6@
+0 @I10@ INDI
+1 NAME Gisela /Brenner/
+2 _MARNM Weber
+1 SEX F
+1 BIRT
+2 DATE 21 SEP 1957
+2 PLAC Plochingen, Württemberg, Deutschland
+1 FAMC @F1@
+1 FAMS @F7@
+0 @I11@ INDI
+1 NAME Thomas /Brenner/
+1 SEX M
+1 BIRT
+2 DATE 30 NOV 1961
+2 PLAC Plochingen, Württemberg, Deutschland
+1 FAMC @F1@
+1 FAMS @F8@
+0 @I12@ INDI
+1 NAME Markus /Brenner/
+1 SEX M
+1 BIRT
+2 DATE 1982
+2 PLAC Stuttgart, Württemberg, Deutschland
+1 FAMC @F6@
+0 @I13@ INDI
+1 NAME Sabine /Brenner/
+1 SEX F
+1 BIRT
+2 DATE 1985
+2 PLAC Stuttgart, Württemberg, Deutschland
+1 FAMC @F6@
+0 @I14@ INDI
+1 NAME Julia /Weber/
+1 SEX F
+1 BIRT
+2 DATE 1988
+2 PLAC Göppingen, Württemberg, Deutschland
+1 FAMC @F7@
+0 @I15@ INDI
+1 NAME Lena /Brenner/
+1 SEX F
+1 BIRT
+2 DATE 1993
+2 PLAC Ulm, Württemberg, Deutschland
+1 FAMC @F8@
+0 @I16@ INDI
+1 NAME Lotte /Brenner/
+1 SEX F
+1 BIRT
+2 DATE 1930
+2 PLAC Esslingen am Neckar, Württemberg, Deutschland
+1 DEAT
+2 DATE 1945
+1 FAMC @F2@
+0 @I17@ INDI
+1 NAME Georg /Brenner/
+1 SEX M
+1 BIRT
+2 DATE 1835
+1 DEAT
+2 DATE 1902
+1 FAMS @F5@
+0 @I18@ INDI
+1 NAME Christina /Bauer/
+2 _MARNM Brenner
+1 SEX F
+1 BIRT
+2 DATE @#DJULIAN@ 1840
+1 DEAT
+2 DATE BET 1910 AND 1912
+1 SOUR Kirchenbuch Esslingen, Sterbefälle
+1 FAMS @F5@
+0 @I19@ INDI
+1 NAME Ingrid /Hofmann/
+2 _MARNM Brenner
+1 SEX F
+1 BIRT
+2 DATE 1956
+1 FAMS @F6@
+0 @I20@ INDI
+1 NAME Klaus /Weber/
+1 SEX M
+1 BIRT
+2 DATE 1955
+1 FAMS @F7@
+0 @I21@ INDI
+1 NAME Petra /Lang/
+2 _MARNM Brenner
+1 SEX F
+1 BIRT
+2 DATE 1964
+1 FAMS @F8@
+0 @F1@ FAM
+1 HUSB @I1@
+1 WIFE @I2@
+1 CHIL @I9@
+1 CHIL @I10@
+1 CHIL @I11@
+1 MARR
+2 DATE 12 SEP 1953
+2 PLAC Plochingen, Württemberg, Deutschland
+2 SOUR @S2@
+3 PAGE 1953 Nr. 88
+0 @F2@ FAM
+1 HUSB @I3@
+1 WIFE @I4@
+1 CHIL @I1@
+1 CHIL @I16@
+1 MARR
+2 DATE 1926
+0 @F3@ FAM
+1 HUSB @I5@
+1 WIFE @I6@
+1 CHIL @I3@
+1 MARR
+2 DATE 1895
+0 @F4@ FAM
+1 HUSB @I7@
+1 WIFE @I8@
+1 CHIL @I4@
+1 MARR
+2 DATE 1899
+0 @F5@ FAM
+1 HUSB @I17@
+1 WIFE @I18@
+1 CHIL @I5@
+0 @F6@ FAM
+1 HUSB @I9@
+1 WIFE @I19@
+1 CHIL @I12@
+1 CHIL @I13@
+0 @F7@ FAM
+1 HUSB @I20@
+1 WIFE @I10@
+1 CHIL @I14@
+0 @F8@ FAM
+1 HUSB @I11@
+1 WIFE @I21@
+1 CHIL @I15@
+0 @S1@ SOUR
+1 TITL Kirchenbuch Esslingen, Taufen
+1 AUTH Evangelische Kirchengemeinde Esslingen
+0 @S2@ SOUR
+1 TITL Standesamt Plochingen, Heiratsregister
+0 @N1@ NOTE Ein Familientreffen fand 1978 in Plochingen statt, mit über 60 Gästen aus der ganzen Verwandts
+1 CONC chaft.
+0 TRLR
