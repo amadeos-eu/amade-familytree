@@ -137,7 +137,7 @@ public final class MainMenuBar extends JMenuBar {
         enable("menu.view.home", hasTree);
         enable("menu.view.more", hasTree && view.hasGenerations());
         enable("menu.view.fewer", hasTree && view.hasGenerations());
-        boolean zoom = hasTree && view.ordinal() < ViewKind.FAN.ordinal();
+        boolean zoom = hasTree && view.isBoxChart();
         for (String k : List.of("menu.view.zoom-in", "menu.view.zoom-out", "menu.view.zoom-reset")) enable(k, zoom);
         enable("menu.view.back", back);
         enable("menu.view.forward", forward);

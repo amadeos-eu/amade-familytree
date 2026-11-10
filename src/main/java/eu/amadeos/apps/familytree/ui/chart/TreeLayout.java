@@ -4,12 +4,16 @@ import eu.amadeos.apps.familytree.domain.DateText;
 import eu.amadeos.apps.familytree.domain.Family;
 import eu.amadeos.apps.familytree.domain.Fact;
 import eu.amadeos.apps.familytree.domain.Person;
+import eu.amadeos.apps.familytree.domain.Relationship;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.function.IntFunction;
 
 /**
@@ -19,7 +23,8 @@ import java.util.function.IntFunction;
  * <ul>
  * <li>{@link #hourglass}: ancestors above, the person with partners in the middle, descendants below;</li>
  * <li>{@link #ancestors}: the classic pedigree from left to right;</li>
- * <li>{@link #descendants}: from the person downwards, with all partners and their children.</li>
+ * <li>{@link #descendants}: from the person downwards, with all partners and their children;</li>
+ * <li>{@link #relationship}: the way from one person to another through their nearest common ancestor.</li>
  * </ul>
  * A person who appears twice (cousins who married) is drawn again but not followed further, so loops end.
  */
@@ -327,5 +332,122 @@ public final class TreeLayout {
         int max = 0;
         for (List<Down> g : d.kids) for (Down k : g) max = Math.max(max, 1 + depthDown(k));
         return max;
+    }
+
+    // ---- relationship ------------------------------------------------------------------------------------------
+
+    /**
+     * The way from {@code from} to {@code to}, like a route: the nearest common ancestor (with the partner who is
+     * the other common ancestor) at the top, the line down to {@code from} on the left and the line down to
+     * {@code to} on the right. A partner on the way (in-laws) stands next to the person they are married to.
+     * Each box but the first is captioned with what the person is to {@code from} ({@code caption}); {@code title}
+     * (may be null) stands above the chart.
+     */
+    public static Chart relationship(Person from, Person to, Function<Person, String> caption, String title) {
+        Chart chart = new Chart();
+        Relationship r = Relationship.between(from, to);
+        Map<Person, double[]> at = new LinkedHashMap<>();
+        switch (r.kind()) {
+            case SAME -> at.put(from, new double[]{0, 0});
+            case NONE -> {
+                at.put(from, new double[]{0, 0});
+                at.put(to, new double[]{Chart.BOX_W + 2 * COLUMN_GAP, 0});
+            }
+            case PARTNER -> {
+                at.put(from, new double[]{0, 0});
+                at.put(to, new double[]{Chart.BOX_W + COUPLE_GAP, 0});
+                couple(chart, 0, 0);
+            }
+            case BLOOD -> blood(chart, r.path(), r.up(), r.down(), r.half(), at);
+            case PARTNERS_RELATIVE -> {
+                // from - partner, then the partner's blood relative.
+                Relationship in = r.inner();
+                blood(chart, in.path(), in.up(), in.down(), in.half(), at);
+                double[] via = at.get(r.via());
+                double x = via[0] - Chart.BOX_W - COUPLE_GAP;
+                at.put(from, new double[]{x, via[1]});
+                couple(chart, x, via[1]);
+            }
+            case RELATIVES_PARTNER -> {
+                // A blood relative of from, then that relative's partner.
+                Relationship in = r.inner();
+                blood(chart, in.path(), in.up(), in.down(), in.half(), at);
+                double[] via = at.get(r.via());
+                at.put(to, new double[]{via[0] + Chart.BOX_W + COUPLE_GAP, via[1]});
+                couple(chart, via[0], via[1]);
+            }
+        }
+        if (title != null && !title.isEmpty()) {
+            double left = at.values().stream().mapToDouble(v -> v[0]).min().orElse(0);
+            chart.title(title, left, -34);
+        }
+        for (Map.Entry<Person, double[]> e : at.entrySet()) {
+            Person p = e.getKey();
+            double x = e.getValue()[0], y = e.getValue()[1];
+            chart.box(new Chart.Box(p, x, y, p.equals(from), false, false));
+            if (!p.equals(from)) {
+                String text = caption.apply(p);
+                if (text != null && !text.isEmpty()) chart.label(text, x + Chart.BOX_W / 2, y - 8);
+            }
+        }
+        return chart.normalized(MARGIN);
+    }
+
+    /** The line between a person at (x, y) and the partner to the right. */
+    private static void couple(Chart chart, double x, double y) {
+        double mid = y + Chart.BOX_H / 2;
+        chart.line(x + Chart.BOX_W, mid, x + Chart.BOX_W + COUPLE_GAP, mid);
+    }
+
+    /** Places the blood line {@code path} (path[up] is the common ancestor) and connects it. */
+    private static void blood(Chart chart, List<Person> path, int up, int down, boolean half,
+                              Map<Person, double[]> at) {
+        double step = Chart.BOX_H + ROW_GAP;
+        double centre = Chart.BOX_W / 2;
+        if (up == 0 || down == 0) {
+            // A straight line of ancestors and descendants: the oldest at the top.
+            List<Person> column = new ArrayList<>(path);
+            if (down == 0) java.util.Collections.reverse(column);
+            for (int i = 0; i < column.size(); i++) {
+                at.put(column.get(i), new double[]{0, i * step});
+                if (i > 0) chart.line(centre, (i - 1) * step + Chart.BOX_H, centre, i * step);
+            }
+            return;
+        }
+        Person common = path.get(up);
+        double left = 0;
+        double right = Chart.BOX_W + COLUMN_GAP;
+        double mid = (left + right + Chart.BOX_W) / 2;
+        Person other = half ? null : coParent(common, path.get(up - 1), path.get(up + 1));
+        double anchorY;
+        if (other == null) {
+            at.put(common, new double[]{mid - centre, 0});
+            anchorY = Chart.BOX_H;
+        } else {
+            double x = mid - Chart.BOX_W - COUPLE_GAP / 2;
+            at.put(common, new double[]{x, 0});
+            at.put(other, new double[]{mid + COUPLE_GAP / 2, 0});
+            couple(chart, x, 0);
+            anchorY = Chart.BOX_H / 2;
+        }
+        double busY = step - ROW_GAP / 2 + 6;
+        chart.line(mid, anchorY, mid, busY);
+        chart.line(left + centre, busY, right + centre, busY);
+        for (int side = 0; side < 2; side++) {
+            double x = side == 0 ? left : right;
+            int n = side == 0 ? up : down;
+            chart.line(x + centre, busY, x + centre, step);
+            for (int k = 1; k <= n; k++) {
+                Person p = side == 0 ? path.get(up - k) : path.get(up + k);
+                at.put(p, new double[]{x, k * step});
+                if (k > 1) chart.line(x + centre, (k - 1) * step + Chart.BOX_H, x + centre, k * step);
+            }
+        }
+    }
+
+    /** The other parent that two children of {@code common} share with it, if they have one in common. */
+    private static Person coParent(Person common, Person a, Person b) {
+        for (Person p : a.parents()) if (!p.equals(common) && b.parents().contains(p)) return p;
+        return null;
     }
 }
