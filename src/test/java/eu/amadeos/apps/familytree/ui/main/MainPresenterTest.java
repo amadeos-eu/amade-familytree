@@ -267,4 +267,17 @@ class MainPresenterTest {
         assertEquals("I1", view.root.id());
         assertEquals("I12", view.selected.id());
     }
+
+    @Test
+    void theListMarksTheHomePerson() throws IOException {
+        brenner();
+        presenter.start(Optional.empty());
+        assertEquals(null, view.home, "no home person chosen yet");
+        presenter.select(person("I12"));
+        presenter.setHome();
+        assertEquals("I12", view.home);
+        prefs.setHomePerson("Brenner", "I1");
+        presenter.start(Optional.empty());
+        assertEquals("I1", view.home, "opening the tree marks its home person");
+    }
 }

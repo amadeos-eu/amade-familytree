@@ -160,6 +160,8 @@ public final class MainWindow extends JFrame implements MainView {
     /** What the chart was last built for, so that a new selection does not rebuild (and scroll) it. */
     private String builtFor = "";
     private boolean updating;
+    /** The id of the home person, marked in the list; null when there is none. */
+    private String homeId;
 
     public MainWindow(Messages msg, LocaleSettings locales, Executor background, String version) {
         super(msg.get("window.title"));
@@ -289,6 +291,16 @@ public final class MainWindow extends JFrame implements MainView {
                 super.getListCellRendererComponent(l, life.isEmpty() ? p.sortName() : p.sortName() + "  " + life,
                         index, sel, focus);
                 setIcon(AmadeUI.colorDot(ChartColors.current().sex(p.sex()), 9));
+                if (homeId != null && homeId.equals(p.id())) {
+                    // The home person ("me") has a frame, so the start of the relationship view is easy to find.
+                    setBorder(BorderFactory.createCompoundBorder(
+                            BorderFactory.createLineBorder(ChartColors.current().accent(), 2, true),
+                            BorderFactory.createEmptyBorder(0, 2, 0, 2)));
+                    setFont(getFont().deriveFont(Font.BOLD));
+                    setToolTipText(msg.get("list.home"));
+                } else {
+                    setToolTipText(null);
+                }
                 return this;
             }
         });
@@ -552,6 +564,12 @@ public final class MainWindow extends JFrame implements MainView {
             updating = false;
         }
         showDetails();
+    }
+
+    @Override
+    public void showHome(String personId) {
+        homeId = personId;
+        list.repaint();
     }
 
     @Override

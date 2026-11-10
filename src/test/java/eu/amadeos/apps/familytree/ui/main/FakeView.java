@@ -23,6 +23,7 @@ public final class FakeView implements MainView {
     StoredTree tree;
     Person root;
     Person selected;
+    String home;
     ViewKind view;
     int generations;
     int refreshes;
@@ -63,6 +64,11 @@ public final class FakeView implements MainView {
     public void showPerson(Person r, Person s) {
         root = r;
         selected = s;
+    }
+
+    @Override
+    public void showHome(String personId) {
+        home = personId;
     }
 
     @Override
