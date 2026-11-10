@@ -195,6 +195,15 @@ class MainPresenterTest {
         presenter.relationship();
         assertEquals(Relationship.Kind.BLOOD, view.relationship.kind());
         assertEquals(5, view.relationship.up());
+        assertEquals(ViewKind.RELATIONSHIP, view.view, "the chart switches to the relationship view");
+        assertEquals("I12", view.root.id(), "the way starts at the home person");
+        assertEquals("I17", view.selected.id());
+
+        presenter.centre(person("I1"));
+        presenter.select(person("I14"));
+        presenter.relationship();
+        assertEquals("I12", view.root.id(), "already in the view: the way starts at home again");
+        assertEquals("I14", view.selected.id());
     }
 
     @Test

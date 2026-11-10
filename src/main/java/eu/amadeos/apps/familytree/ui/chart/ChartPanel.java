@@ -149,6 +149,24 @@ public final class ChartPanel extends JComponent implements Scrollable, Printabl
         repaint();
     }
 
+    /**
+     * Makes the whole chart visible: zooms out as far as needed (never in beyond 100 %) and scrolls to the start.
+     * The relationship view uses it so that the whole way from one person to the other is on screen.
+     */
+    public void showAll() {
+        Rectangle view = getParent() instanceof JViewport vp ? vp.getViewRect() : getVisibleRect();
+        if (view.width <= 0 || view.height <= 0) return;
+        Rectangle2D b = chart.bounds();
+        double w = b.getMaxX() + TreeLayout.MARGIN, h = b.getMaxY() + TreeLayout.MARGIN;
+        // A pixel to spare, so that rounding up the size does not bring back a scroll bar.
+        double fit = Math.min(1, Math.min((view.width - 1) / w, (view.height - 1) / h));
+        zoom = Math.max(MIN_ZOOM, fit);
+        revalidate();
+        setSize(getPreferredSize());
+        scrollRectToVisible(new Rectangle(0, 0, view.width, view.height));
+        repaint();
+    }
+
     /** Scrolls so that the person's box is in the middle of the view. */
     public void reveal(Person p) {
         chart.boxOf(p).ifPresent(b -> {

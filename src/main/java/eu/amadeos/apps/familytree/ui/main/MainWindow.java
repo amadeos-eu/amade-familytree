@@ -619,7 +619,8 @@ public final class MainWindow extends JFrame implements MainView {
                         msg.format("rel.view.title", root.fullName(), target.fullName(),
                                 words.of(Relationship.between(root, target)))));
                 viewCards.show(viewArea, CHART);
-                javax.swing.SwingUtilities.invokeLater(() -> chart.reveal(target));
+                // The whole way, from the start to the destination, is on screen.
+                javax.swing.SwingUtilities.invokeLater(chart::showAll);
             }
             case FAN -> {
                 fan.setRoot(root, generations);
