@@ -628,11 +628,23 @@ public final class MainPresenter {
         updateActions();
     }
 
+    /** Shows the way from the home person to the selected person as a chart, then explains it in words. */
     public void relationship() {
         if (selected == null || tree == null) return;
-        Person to = home().orElse(root);
-        if (to == null) return;
-        view.showRelationship(to, selected, Relationship.between(to, selected));
+        Person start = home().orElse(root);
+        if (start == null) return;
+        if (viewKind != ViewKind.RELATIONSHIP) {
+            showView(ViewKind.RELATIONSHIP);
+        } else if (!start.equals(root)) {
+            if (root != null) {
+                back.push(root.id());
+                forward.clear();
+            }
+            root = start;
+            view.showPerson(root, selected);
+            updateActions();
+        }
+        view.showRelationship(start, selected, Relationship.between(start, selected));
     }
 
     // ---- help and the rest -------------------------------------------------------------------------------------
