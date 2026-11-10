@@ -588,12 +588,14 @@ public final class MainPresenter {
         if (!view.confirm(msg.format("delete.confirm", p.fullName()))) return;
         Undo.Step step = undo.begin(tree, msg.format("undo.delete", p.shortName()));
         step.touchAround(p);
+        // The selection moves to a parent, partner or child; they are known only before the links go.
+        Person next = p.parents().stream().findFirst().or(() -> p.partners().stream().findFirst())
+                .or(() -> p.children().stream().findFirst()).orElse(null);
         // Media and other records stay; only links to the person go.
         tree.removePerson(p);
         undo.commit(step);
         save();
-        Person next = p.parents().stream().findFirst().or(() -> p.partners().stream().findFirst())
-                .or(() -> p.children().stream().findFirst()).map(this::again).orElse(null);
+        next = again(next);
         if (root != null && root.equals(p)) root = next != null ? next : home().orElseGet(() ->
                 tree.persons().stream().findFirst().orElse(null));
         selected = next != null ? next : root;

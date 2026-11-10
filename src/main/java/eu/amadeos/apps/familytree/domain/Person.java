@@ -294,6 +294,61 @@ public final class Person {
         return String.join("\n\n", parts);
     }
 
+    // ---- changing names --------------------------------------------------------------------------------------
+
+    /**
+     * Sets given names, the surname the person is known by, the call name and the surname at birth, the way the
+     * editor shows them. A married name stays a married name ({@code NAME} of type MARRIED or {@code _MARNM}); a
+     * birth surname that differs from the surname becomes a {@code NAME} of type BIRTH unless the file already
+     * keeps it as the primary name below a married name.
+     */
+    public void setNames(String given, String surname, String called, String birth) {
+        String g = given == null ? "" : given.strip();
+        String s = surname == null ? "" : surname.strip();
+        String b = birth == null ? "" : birth.strip();
+        PersonName primary = primaryName().orElseGet(() -> {
+            GedcomNode n = new GedcomNode("NAME", PersonName.value("", "", null));
+            int at = node.child("SEX").map(node::indexOf).orElse(node.children().size());
+            node.add(Math.min(at, node.children().size()), n);
+            return new PersonName(n);
+        });
+        Optional<PersonName> marriedName = names().stream().filter(n -> n.type().equals("MARRIED")).findFirst();
+        Optional<PersonName> birthName = names().stream()
+                .filter(n -> n.type().equals("BIRTH") || n.type().equals("MAIDEN")).findFirst();
+        boolean hasMarnm = !primary.marriedSurname().isEmpty();
+        if (marriedName.isPresent() || hasMarnm) {
+            // Married: the shown surname is the married one; the primary name keeps the birth surname.
+            if (marriedName.isPresent()) marriedName.get().set(g, s);
+            else primary.node().set("_MARNM", s);
+            boolean primaryIsMarried = marriedName.isPresent() && marriedName.get().node() == primary.node();
+            String atBirth = !b.isEmpty() ? b : birthName.map(PersonName::surname)
+                    .orElse(primaryIsMarried ? "" : primary.surname());
+            if (birthName.isPresent()) {
+                birthName.get().set(g, atBirth);
+                if (!primaryIsMarried && marriedName.isPresent()) primary.set(g, primary.surname());
+            } else if (primaryIsMarried) {
+                if (!atBirth.isEmpty()) {
+                    GedcomNode n = new GedcomNode("NAME", PersonName.value(g, atBirth, null));
+                    n.add("TYPE", "BIRTH");
+                    node.add(node.indexOf(primary.node()) + 1, n);
+                }
+            } else {
+                primary.set(g, atBirth);
+            }
+        } else {
+            primary.set(g, s);
+            if (birthName.isPresent() && birthName.get().node() != primary.node()) {
+                if (b.isEmpty() || b.equalsIgnoreCase(s)) node.remove(birthName.get().node());
+                else birthName.get().set(g, b);
+            } else if (!b.isEmpty() && !b.equalsIgnoreCase(s)) {
+                GedcomNode n = new GedcomNode("NAME", PersonName.value(g, b, null));
+                n.add("TYPE", "BIRTH");
+                node.add(node.indexOf(primary.node()) + 1, n);
+            }
+        }
+        primary.setCalled(called);
+    }
+
     // ---- family ----------------------------------------------------------------------------------------------
 
     /** The families the person is a child of ({@code FAMC}), usually one. */

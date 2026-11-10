@@ -13,7 +13,7 @@ import java.util.Optional;
  * How {@code other} is related to {@code to}: through the nearest common ancestor ({@code up} generations
  * above {@code to}, {@code down} generations above {@code other}), or, without one, through one marriage.
  *
- * <p>{@code up} and {@code down} decide the word: 0/1 is a parent, 1/0 a child, 1/1 a sibling, 2/1 an aunt or
+ * <p>{@code up} and {@code down} decide the word: 1/0 is a parent, 0/1 a child, 1/1 a sibling, 2/1 an aunt or
  * uncle, 1/2 a niece or nephew, 2/2 a first cousin, 3/2 a first cousin once removed, and so on.
  *
  * @param path  the people from {@code to} to {@code other}, both included

@@ -1,12 +1,16 @@
 package eu.amadeos.apps.familytree;
 
+import eu.amadeos.apps.familytree.bootstrap.FamilyTreeModule;
 import eu.amadeos.apps.familytree.domain.FamilyTree;
+import eu.amadeos.apps.familytree.domain.Person;
 import eu.amadeos.apps.familytree.gedcom.GedcomReader;
+import eu.amadeos.commons.i18n.Messages;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Locale;
 
 /** The invented Brenner family of the test resources. */
 public final class Samples {
@@ -42,5 +46,17 @@ public final class Samples {
         } catch (IOException e) {
             throw new UncheckedIOException(e);
         }
+    }
+
+    public static Messages messages(Locale locale) {
+        return Messages.load(FamilyTreeModule.class, FamilyTreeModule.MESSAGES, locale);
+    }
+
+    public static Messages english() {
+        return messages(Locale.ENGLISH);
+    }
+
+    public static Person person(FamilyTree tree, String id) {
+        return tree.person(id).orElseThrow();
     }
 }
