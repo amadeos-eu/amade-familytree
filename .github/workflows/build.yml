@@ -57,7 +57,8 @@ jobs:
           for f in opt/amade-familytree/amade-familytree.jar usr/bin/amade-familytree \
                    usr/share/applications/amade-familytree.desktop \
                    usr/share/icons/hicolor/48x48/apps/amade-familytree.png \
-                   usr/share/metainfo/eu.amadeos.apps.familytree.metainfo.xml usr/share/doc/amade-familytree/copyright; do
+                   usr/share/metainfo/eu.amadeos.apps.familytree.metainfo.xml usr/share/mime/packages/amade-familytree.xml \
+                   usr/share/doc/amade-familytree/copyright; do
             grep -q "$f" contents.txt || { echo "missing in the package: $f"; exit 1; }
           done
       - name: Upload the Debian package

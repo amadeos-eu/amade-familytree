@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- GEDCOM files, installed as /usr/share/mime/packages/amade-familytree.xml so that Files knows them. The types
+     are the ones the GEDCOM 7 specification registers. -->
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+  <mime-type type="text/vnd.familysearch.gedcom">
+    <comment>GEDCOM family tree</comment>
+    <comment xml:lang="de">GEDCOM-Stammbaum</comment>
+    <comment xml:lang="fr">Arbre généalogique GEDCOM</comment>
+    <comment xml:lang="es">Árbol genealógico GEDCOM</comment>
+    <comment xml:lang="it">Albero genealogico GEDCOM</comment>
+    <sub-class-of type="text/plain"/>
+    <alias type="application/x-gedcom"/>
+    <glob pattern="*.ged"/>
+    <glob pattern="*.gedcom"/>
+    <magic priority="60">
+      <match type="string" offset="0:3" value="0 HEAD"/>
+    </magic>
+  </mime-type>
+  <mime-type type="application/vnd.familysearch.gedcom+zip">
+    <comment>GEDCOM family tree with photos (GEDZIP)</comment>
+    <comment xml:lang="de">GEDCOM-Stammbaum mit Fotos (GEDZIP)</comment>
+    <comment xml:lang="fr">Arbre généalogique GEDCOM avec photos (GEDZIP)</comment>
+    <comment xml:lang="es">Árbol genealógico GEDCOM con fotos (GEDZIP)</comment>
+    <comment xml:lang="it">Albero genealogico GEDCOM con foto (GEDZIP)</comment>
+    <sub-class-of type="application/zip"/>
+    <glob pattern="*.gdz"/>
+  </mime-type>
+</mime-info>

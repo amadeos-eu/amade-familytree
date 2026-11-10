@@ -29,7 +29,8 @@ import java.util.Optional;
 /**
  * The ancestors as a half circle: the person in the middle, parents in the first ring, grandparents in the
  * second, and so on. Each of the four grandparents' lines has its own colour; empty places show where research
- * can go on. Click selects, double-click puts that person in the middle.
+ * can go on. The fan is drawn as large as the window allows. Click selects, double-click puts that person in the
+ * middle.
  */
 public final class FanChart extends JComponent implements Printable {
     static final double CENTRE = 72;
@@ -121,11 +122,17 @@ public final class FanChart extends JComponent implements Printable {
         return new Dimension((int) (2 * r + 60), (int) (r + 70));
     }
 
-    public Optional<Person> personAt(Point p) {
+    /** The fan fills the window: scale and offset of the drawing, from {@link #paintComponent}. */
+    private double scale = 1;
+    private double offsetX;
+    private double offsetY;
+
+    public Optional<Person> personAt(Point at) {
+        java.awt.geom.Point2D p = new java.awt.geom.Point2D.Double((at.x - offsetX) / scale, (at.y - offsetY) / scale);
         for (Segment s : segments) if (s.person() != null && s.shape().contains(p)) return Optional.of(s.person());
-        double r = CENTRE;
-        double cx = getWidth() / 2.0, cy = getHeight() - 30.0;
-        if (root != null && p.distance(cx, cy) <= r && p.y <= cy) return Optional.of(root);
+        Dimension d = getPreferredSize();
+        double cx = d.width / 2.0, cy = d.height - 30.0;
+        if (root != null && p.distance(cx, cy) <= CENTRE && p.getY() <= cy) return Optional.of(root);
         return Optional.empty();
     }
 
@@ -140,7 +147,13 @@ public final class FanChart extends JComponent implements Printable {
         ChartColors c = ChartColors.current();
         g.setColor(c.background());
         g.fillRect(0, 0, getWidth(), getHeight());
-        draw(g, c, getWidth() / 2.0, getHeight() - 30.0, true);
+        Dimension d = getPreferredSize();
+        scale = Math.min(1.4, Math.min(getWidth() / (double) d.width, getHeight() / (double) d.height));
+        offsetX = (getWidth() - d.width * scale) / 2;
+        offsetY = (getHeight() - d.height * scale) / 2;
+        g.translate(offsetX, offsetY);
+        g.scale(scale, scale);
+        draw(g, c, d.width / 2.0, d.height - 30.0, true);
         g.dispose();
     }
 

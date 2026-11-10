@@ -95,7 +95,7 @@ public final class Pages {
     }
 
     private void column(StringBuilder b, Optional<Person> person, Family f) {
-        b.append("<td width='50%'>");
+        b.append("<td width='50%' valign='top'>");
         if (person.isEmpty()) {
             b.append("<p class=m>").append(esc(t.get("family.unknown-partner"))).append("</p></td>");
             return;

@@ -102,6 +102,12 @@ exec /usr/bin/java -jar /opt/amade-familytree/amade-familytree.jar "\$@"
             from 'packaging/eu.amadeos.apps.familytree.metainfo.xml'
             into new File(stagingDir, "usr/share/metainfo")
         }
+        // GEDCOM and GEDZIP, so that a double-click in Files opens them here (dpkg's trigger updates the database).
+        copy {
+            from 'packaging/amade-familytree-mime.xml'
+            into new File(stagingDir, 'usr/share/mime/packages')
+            rename { 'amade-familytree.xml' }
+        }
         copy {
             from 'src/main/resources/icons/amade-familytree.png'
             into iconDir

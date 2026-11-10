@@ -29,7 +29,7 @@ class GedcomReaderTest {
         GedcomNode ernst = f.records().stream().filter(r -> "I1".equals(r.xref())).findFirst().orElseThrow();
         assertEquals("Ernst Wilhelm /Brenner/", ernst.valueOf("NAME"));
         assertEquals("14 MAR 1928", ernst.valueOf("BIRT.DATE"));
-        assertEquals("Ernst erzählte gern von der Lehre bei Bosch.\nEr war 40 Jahre im selben Betrieb.",
+        assertEquals("Ernst erzählte gern von seiner Lehre in der Werkzeugfabrik.\nEr war 40 Jahre im selben Betrieb.",
                 ernst.valueOf("NOTE"));
     }
 

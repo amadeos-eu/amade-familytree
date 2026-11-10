@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- AppStream metadata of amade-familytree, installed as /usr/share/metainfo/eu.amadeos.apps.familytree.metainfo.xml.
+     amadeOS Software shows it for the installed package; a repository's appstream-generator reads it too. -->
+<component type="desktop-application">
+  <id>eu.amadeos.apps.familytree</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>EUPL-1.2</project_license>
+
+  <name>amadeOS Family Tree</name>
+  <name xml:lang="de">amadeOS Stammbaum</name>
+  <name xml:lang="fr">amadeOS Arbre généalogique</name>
+  <name xml:lang="es">amadeOS Árbol genealógico</name>
+  <name xml:lang="it">amadeOS Albero genealogico</name>
+
+  <summary>Record ancestors and relatives and see them as charts</summary>
+  <summary xml:lang="de">Vorfahren und Verwandte erfassen und als Stammbaum sehen</summary>
+  <summary xml:lang="fr">Noter ancêtres et parenté et les voir en arbre</summary>
+  <summary xml:lang="es">Registrar antepasados y familiares y verlos como árbol</summary>
+  <summary xml:lang="it">Registrare antenati e parenti e vederli come albero</summary>
+
+  <description>
+    <p>amade-familytree is the genealogy program of the amadeOS desktop. It records ancestors and relatives with dates, places, sources, notes and photos and shows them as charts, family sheets and timelines. It reads and writes GEDCOM, so a tree exported from a genealogy website or another program can be carried on here.</p>
+    <p xml:lang="de">amade-familytree ist das Genealogie-Programm des amadeOS-Desktops. Es erfasst Vorfahren und Verwandte mit Daten, Orten, Quellen, Notizen und Fotos und zeigt sie als Diagramme, Familienblätter und Zeitleisten. Es liest und schreibt GEDCOM, so lässt sich ein Stammbaum, der von einer Genealogie-Website oder einem anderen Programm exportiert wurde, hier weiterführen.</p>
+    <p xml:lang="fr">amade-familytree est le programme de généalogie du bureau amadeOS. Il note ancêtres et parenté avec dates, lieux, sources, notes et photos et les montre en graphiques, fiches familiales et chronologies. Il lit et écrit GEDCOM : un arbre exporté d'un site de généalogie ou d'un autre programme peut être poursuivi ici.</p>
+    <p xml:lang="es">amade-familytree es el programa de genealogía del escritorio amadeOS. Registra antepasados y familiares con fechas, lugares, fuentes, notas y fotos y los muestra como gráficos, fichas familiares y cronologías. Lee y escribe GEDCOM, así que un árbol exportado de un sitio web de genealogía o de otro programa puede continuarse aquí.</p>
+    <p xml:lang="it">amade-familytree è il programma di genealogia del desktop amadeOS. Registra antenati e parenti con date, luoghi, fonti, note e foto e li mostra come grafici, schede di famiglia e cronologie. Legge e scrive GEDCOM, quindi un albero esportato da un sito di genealogia o da un altro programma può essere continuato qui.</p>
+    <ul>
+      <li>Hourglass, ancestor, descendant and fan charts, family sheet and timeline</li>
+      <li xml:lang="de">Sanduhr, Vorfahren, Nachfahren, Fächer, Familienblatt und Zeitleiste</li>
+      <li xml:lang="fr">Sablier, ascendants, descendants, éventail, fiche familiale et chronologie</li>
+      <li xml:lang="es">Reloj de arena, ascendientes, descendientes, abanico, ficha familiar y cronología</li>
+      <li xml:lang="it">Clessidra, antenati, discendenti, ventaglio, scheda famiglia e cronologia</li>
+      <li>GEDCOM 5.5.1, 7.0 and GEDZIP import and export; unknown entries are kept</li>
+      <li xml:lang="de">Import und Export von GEDCOM 5.5.1, 7.0 und GEDZIP; unbekannte Einträge bleiben erhalten</li>
+      <li xml:lang="fr">Import et export GEDCOM 5.5.1, 7.0 et GEDZIP ; les entrées inconnues sont gardées</li>
+      <li xml:lang="es">Importación y exportación de GEDCOM 5.5.1, 7.0 y GEDZIP; las entradas desconocidas se conservan</li>
+      <li xml:lang="it">Importazione ed esportazione GEDCOM 5.5.1, 7.0 e GEDZIP; le voci sconosciute restano</li>
+      <li>Downloads photos that an export only links to</li>
+      <li xml:lang="de">Lädt Fotos herunter, auf die ein Export nur verlinkt</li>
+      <li xml:lang="fr">Télécharge les photos qu'un export ne contient que sous forme de lien</li>
+      <li xml:lang="es">Descarga las fotos que una exportación solo enlaza</li>
+      <li xml:lang="it">Scarica le foto che un'esportazione contiene solo come collegamento</li>
+      <li>Finds names that sound alike and works out how two people are related</li>
+      <li xml:lang="de">Findet ähnlich klingende Namen und ermittelt, wie zwei Personen verwandt sind</li>
+      <li xml:lang="fr">Trouve les noms qui se prononcent pareil et calcule le lien de parenté entre deux personnes</li>
+      <li xml:lang="es">Encuentra nombres que suenan parecido y calcula el parentesco entre dos personas</li>
+      <li xml:lang="it">Trova i nomi dal suono simile e calcola la parentela tra due persone</li>
+      <li>Living and private people can be left out of an export</li>
+      <li xml:lang="de">Lebende und private Personen lassen sich beim Export weglassen</li>
+      <li xml:lang="fr">Les personnes vivantes et privées peuvent être laissées hors d'un export</li>
+      <li xml:lang="es">Las personas vivas y privadas pueden omitirse al exportar</li>
+      <li xml:lang="it">Le persone in vita e private possono essere tralasciate nell'esportazione</li>
+    </ul>
+  </description>
+
+  <launchable type="desktop-id">amade-familytree.desktop</launchable>
+  <icon type="stock">amade-familytree</icon>
+  <categories>
+    <category>Office</category>
+    <category>Education</category>
+  </categories>
+
+  <url type="homepage">https://github.com/amadeos-eu/amade-familytree</url>
+  <url type="bugtracker">https://github.com/amadeos-eu/amade-familytree/issues</url>
+  <developer id="eu.amadeos">
+    <name>amadeOS Project</name>
+  </developer>
+
+  <screenshots>
+    <screenshot type="default">
+      <caption>A family as an hourglass: ancestors above, children below</caption>
+      <caption xml:lang="de">Eine Familie als Sanduhr: Vorfahren oben, Kinder unten</caption>
+      <caption xml:lang="fr">Une famille en sablier : ancêtres en haut, enfants en bas</caption>
+      <caption xml:lang="es">Una familia como reloj de arena: antepasados arriba, hijos abajo</caption>
+      <caption xml:lang="it">Una famiglia come clessidra: antenati sopra, figli sotto</caption>
+      <image>https://raw.githubusercontent.com/amadeos-eu/amade-familytree/main/docs/screenshots/amade-familytree.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>The ancestors as a fan</caption>
+      <caption xml:lang="de">Die Vorfahren als Fächer</caption>
+      <caption xml:lang="fr">Les ancêtres en éventail</caption>
+      <caption xml:lang="es">Los antepasados como abanico</caption>
+      <caption xml:lang="it">Gli antenati a ventaglio</caption>
+      <image>https://raw.githubusercontent.com/amadeos-eu/amade-familytree/main/docs/screenshots/amade-familytree-fan.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>The person editor</caption>
+      <caption xml:lang="de">Der Personen-Editor</caption>
+      <caption xml:lang="fr">L'éditeur de personne</caption>
+      <caption xml:lang="es">El editor de personas</caption>
+      <caption xml:lang="it">L'editor della persona</caption>
+      <image>https://raw.githubusercontent.com/amadeos-eu/amade-familytree/main/docs/screenshots/amade-familytree-editor.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>What a GEDCOM file holds, before it is imported</caption>
+      <caption xml:lang="de">Was eine GEDCOM-Datei enthält, vor dem Import</caption>
+      <caption xml:lang="fr">Ce que contient un fichier GEDCOM, avant l'import</caption>
+      <caption xml:lang="es">Lo que contiene un archivo GEDCOM, antes de importarlo</caption>
+      <caption xml:lang="it">Cosa contiene un file GEDCOM, prima dell'importazione</caption>
+      <image>https://raw.githubusercontent.com/amadeos-eu/amade-familytree/main/docs/screenshots/amade-familytree-import.png</image>
+    </screenshot>
+  </screenshots>
+
+  <provides>
+    <binary>amade-familytree</binary>
+    <mediatype>text/vnd.familysearch.gedcom</mediatype>
+    <mediatype>application/vnd.familysearch.gedcom+zip</mediatype>
+  </provides>
+  <content_rating type="oars-1.1"/>
+</component>

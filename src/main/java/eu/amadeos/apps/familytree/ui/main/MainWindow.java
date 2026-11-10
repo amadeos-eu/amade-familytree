@@ -200,8 +200,10 @@ public final class MainWindow extends JFrame implements MainView {
         JSplitPane right = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, centre(), detailsSide());
         right.setResizeWeight(1);
         right.setBorder(null);
-        JSplitPane split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, listSide(), right);
+        JComponent people = listSide();
+        JSplitPane split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, people, right);
         split.setBorder(null);
+        split.setDividerLocation(people.getPreferredSize().width);
         JPanel treePage = new JPanel(new BorderLayout());
         treePage.setBorder(BorderFactory.createEmptyBorder(8, 8, 4, 8));
         treePage.add(split, BorderLayout.CENTER);
@@ -310,8 +312,10 @@ public final class MainWindow extends JFrame implements MainView {
             }
         });
         JScrollPane scroll = new JScrollPane(list);
-        scroll.setPreferredSize(new Dimension(Math.round(250 * AmadeUI.fontScale()), 400));
         side.add(scroll, BorderLayout.CENTER);
+        // The split pane gives the list the width it asks for; the field and combo box alone would ask for little.
+        side.setPreferredSize(new Dimension(Math.round(260 * AmadeUI.fontScale()), 400));
+        side.setMinimumSize(new Dimension(160, 200));
         count.setName("count");
         AmadeUI.style(count, (l, t) -> l.setForeground(t.textInactive()));
         side.add(count, BorderLayout.SOUTH);
@@ -326,8 +330,6 @@ public final class MainWindow extends JFrame implements MainView {
         chartScroll.getHorizontalScrollBar().setUnitIncrement(24);
         chart.setName("chart");
         fan.setName("fan");
-        JScrollPane fanScroll = new JScrollPane(fan);
-        fanScroll.getVerticalScrollBar().setUnitIncrement(24);
         page.setName("page");
         page.setEditable(false);
         page.setContentType("text/html");
@@ -344,7 +346,7 @@ public final class MainWindow extends JFrame implements MainView {
         pageArea.add(sheetBar, BorderLayout.NORTH);
         pageArea.add(new JScrollPane(page), BorderLayout.CENTER);
         viewArea.add(chartScroll, CHART);
-        viewArea.add(fanScroll, FAN);
+        viewArea.add(fan, FAN);
         viewArea.add(pageArea, PAGE);
         centre.add(viewArea, BorderLayout.CENTER);
         return centre;
@@ -352,19 +354,20 @@ public final class MainWindow extends JFrame implements MainView {
 
     private JComponent viewBar() {
         JPanel bar = new JPanel(new BorderLayout());
-        JPanel views = new JPanel(new FlowLayout(FlowLayout.LEFT, 4, 0));
+        JPanel views = new JPanel(new WrapLayout(FlowLayout.LEFT, 4, 2));
         javax.swing.ButtonGroup group = new javax.swing.ButtonGroup();
         for (ViewKind kind : ViewKind.values()) {
             JToggleButton b = new JToggleButton(Mnemonics.strip(msg.get(kind.textKey())));
             b.setName("view-" + kind.name());
             b.setFocusable(false);
+            b.setMargin(new Insets(2, 8, 2, 8));
             b.addActionListener(e -> presenter.showView(kind));
             group.add(b);
             viewButtons.put(kind, b);
             views.add(b);
         }
         bar.add(views, BorderLayout.CENTER);
-        JPanel nav = new JPanel(new FlowLayout(FlowLayout.RIGHT, 4, 0));
+        JPanel nav = new JPanel(new FlowLayout(FlowLayout.RIGHT, 4, 2));
         fewer.setName("fewer");
         fewer.setToolTipText(Mnemonics.strip(msg.get("menu.view.fewer")));
         fewer.addActionListener(e -> presenter.fewerGenerations());

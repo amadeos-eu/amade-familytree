@@ -62,7 +62,13 @@ public final class DateText {
             case ABOUT, CALCULATED, ESTIMATED -> "~" + y;
             case BEFORE, TO -> "<" + y;
             case AFTER, FROM -> ">" + y;
-            case BETWEEN, FROM_TO -> d.second().year() == p.year() ? y : y + "–" + d.second().year();
+            // "1910/12": between two years, short enough for a lifespan ("1840–1910/12").
+            case BETWEEN, FROM_TO -> {
+                int second = d.second().year();
+                if (second == p.year()) yield y;
+                yield second / 100 == p.year() / 100 && second > p.year()
+                        ? y + "/" + String.format("%02d", second % 100) : y + "/" + second;
+            }
             default -> y;
         };
     }
