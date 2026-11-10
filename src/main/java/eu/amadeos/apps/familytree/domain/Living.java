@@ -22,11 +22,13 @@ public final class Living {
         return new Living(java.time.Year.now().getValue());
     }
 
+    // --8<-- [start:living]
     public boolean isLiving(Person p) {
         if (p.isDeceased()) return false;
         OptionalInt born = estimatedBirthYear(p);
         return born.isEmpty() || born.getAsInt() > thisYear - MAX_AGE;
     }
+    // --8<-- [end:living]
 
     /** The birth year, else one worked out from the person's own facts, partners, children or parents. */
     public static OptionalInt estimatedBirthYear(Person p) {

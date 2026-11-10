@@ -88,6 +88,7 @@ public record Relationship(Kind kind, int up, int down, boolean half, Sex sex, L
         return gen;
     }
 
+    // --8<-- [start:blood]
     static Optional<Relationship> blood(Person to, Person other) {
         Map<Person, Person> viaTo = new LinkedHashMap<>();
         Map<Person, Person> viaOther = new LinkedHashMap<>();
@@ -114,6 +115,7 @@ public record Relationship(Kind kind, int up, int down, boolean half, Sex sex, L
         for (Person p = other; p != null && !p.equals(common); p = parentOnPath(viaOther, p, common)) back.add(p);
         Collections.reverse(back);
         path.addAll(back);
+    // --8<-- [end:blood]
         boolean half = false;
         if (up >= 1 && down >= 1) {
             // Half relations share only one of the two ancestors of the top couple.

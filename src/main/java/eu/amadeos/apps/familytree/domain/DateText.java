@@ -154,6 +154,7 @@ public final class DateText {
      * Reads a typed date. A text that is not a date is kept as {@link GenDate.Kind#TEXT}, so nothing is lost;
      * {@link GenDate#isValid()} tells the editor whether to warn.
      */
+    // --8<-- [start:parse]
     public static GenDate parse(String input) {
         if (input == null || input.isBlank()) return GenDate.NONE;
         String in = input.strip();
@@ -169,6 +170,7 @@ public final class DateText {
         GenDate result = human(s.strip(), phrase, input.strip());
         return result != null ? result : GenDate.text(input.strip());
     }
+    // --8<-- [end:parse]
 
     private static GenDate human(String s, String phrase, String original) {
         for (String b : BETWEEN) {

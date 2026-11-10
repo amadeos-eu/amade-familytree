@@ -101,6 +101,7 @@ public final class TreeStore {
     }
 
     /** Writes the tree as GEDCOM 7.0, safely; the first save in a session keeps a backup of the old file. */
+    // --8<-- [start:save]
     public void save(StoredTree t, FamilyTree tree) throws IOException {
         Files.createDirectories(t.folder());
         Path file = t.file();
@@ -116,6 +117,7 @@ public final class TreeStore {
             Files.move(part, file, StandardCopyOption.REPLACE_EXISTING);
         }
     }
+    // --8<-- [end:save]
 
     void backup(StoredTree t) throws IOException {
         Files.createDirectories(t.backups());

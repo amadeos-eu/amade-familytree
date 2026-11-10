@@ -92,6 +92,7 @@ public final class GedcomExport {
     }
 
     /** Applies the privacy options to a copy; returns {left out, shortened}. */
+    // --8<-- [start:privacy]
     static int[] privacy(FamilyTree copy, Options options) {
         Living living = Living.now();
         int leftOut = 0, shortened = 0;
@@ -126,6 +127,7 @@ public final class GedcomExport {
         removeUnused(copy);
         return new int[]{leftOut, shortened};
     }
+    // --8<-- [end:privacy]
 
     /** Media records nobody points to any more (after leaving people out) are not written. */
     private static void removeUnused(FamilyTree copy) {
