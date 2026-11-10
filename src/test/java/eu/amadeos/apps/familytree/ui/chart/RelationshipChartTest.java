@@ -7,6 +7,8 @@ import eu.amadeos.apps.familytree.domain.Relationship;
 import eu.amadeos.apps.familytree.ui.text.RelationshipText;
 import org.junit.jupiter.api.Test;
 
+import javax.swing.JScrollPane;
+import java.awt.Dimension;
 import java.util.List;
 
 import static eu.amadeos.apps.familytree.Samples.person;
@@ -101,5 +103,26 @@ class RelationshipChartTest {
         Chart same = chart("I1", "I1");
         assertEquals(1, same.boxes().size());
         assertTrue(same.labels().isEmpty());
+    }
+
+    @Test
+    void theWholeWayFitsOnScreen() {
+        ChartPanel panel = new ChartPanel(new Portraits(Runnable::run), s -> s);
+        JScrollPane scroll = new JScrollPane(panel);
+        scroll.setSize(300, 250);
+        scroll.doLayout();
+        scroll.getViewport().setSize(300, 250);
+        panel.setChart(chart("I12", "I17"));
+        panel.showAll();
+        Dimension d = panel.getPreferredSize();
+        assertTrue(panel.zoom() < 1, "zoomed out");
+        assertTrue(d.width <= 300 && d.height <= 250, "fits: " + d);
+
+        scroll.setSize(900, 700);
+        scroll.doLayout();
+        scroll.getViewport().setSize(900, 700);
+        panel.setChart(chart("I1", "I9"));
+        panel.showAll();
+        assertEquals(1, panel.zoom(), 0.001, "a short way stays at 100 %");
     }
 }
